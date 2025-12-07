@@ -1,4 +1,5 @@
 "use client";
+
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -6,50 +7,63 @@ import { ArrowUpRight } from "lucide-react";
 export default function ProjectCard({ project }: any) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
       className="w-full"
     >
-      <Link href={`/projects/${project.slug}`} className="group block h-full relative">
+      <Link href={`/projects/${project.slug}`} className="group block h-full">
         <div
-          className="glass-panel p-5 sm:p-6 lg:p-7 h-full rounded-3xl 
-          transition-all duration-500 hover:-translate-y-1 
-          hover:shadow-[0_8px_30px_-8px_rgba(59,130,246,0.25)]"
+          className="
+            glass-panel
+            rounded-2xl
+            p-6
+            
+            min-h-[340px]
+            max-h-[380px]
+            transition-all duration-300
+            hover:-translate-y-1
+            hover:shadow-[0_10px_40px_-12px_rgba(59,130,246,0.25)]
+          "
         >
-          <div
-            className="absolute -inset-1 opacity-0 group-hover:opacity-100 
-            bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent 
-            blur-2xl rounded-3xl transition duration-700 pointer-events-none"
-          />
-
-          <div className="relative z-10 flex flex-col h-full justify-between gap-4">
+          <div className="relative flex flex-col h-full justify-between gap-4">
+            {/* Top */}
             <div>
-              <div className="flex justify-between items-start">
+              <div className="flex items-start justify-between gap-3">
                 <h3
-                  className="text-lg sm:text-xl lg:text-2xl font-bold 
-                text-[var(--text-primary)] group-hover:text-blue-500"
+                  className="
+                    text-xl lg:text-2xl font-semibold
+                    leading-tight tracking-tight
+                    break-normal hyphens-none
+                    text-[var(--text-primary)]
+                    group-hover:text-blue-400
+                    transition-colors
+                  "
                 >
                   {project.title}
                 </h3>
-                <ArrowUpRight className="text-neutral-400 group-hover:text-blue-500 transition" />
+                <ArrowUpRight className="text-neutral-500 group-hover:text-blue-400 transition" />
               </div>
 
-              <p
-                className="mt-3 text-sm sm:text-base text-neutral-400 
-              leading-relaxed"
-              >
+              <p className="mt-3 text-sm text-neutral-400 leading-relaxed max-w-[90%]">
                 {project.short}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-auto">
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2">
               {project.tags.map((t: string) => (
                 <span
                   key={t}
-                  className="px-3 py-1 text-[10px] sm:text-xs uppercase 
-                  border border-white/10 rounded-full bg-white/5"
+                  className="
+                    text-[11px] uppercase tracking-wide
+                    px-3 py-1
+                    rounded-full
+                    border border-white/10
+                    bg-white/5
+                    text-white/60
+                  "
                 >
                   {t}
                 </span>
