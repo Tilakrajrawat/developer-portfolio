@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+/* =======================
+   THEME VARIABLES
+======================= */
 
 .dark {
   --bg-primary: #000000;
@@ -27,7 +32,8 @@
   --glass-shadow: none;
   --gradient-from: #ffcdd2;
   --gradient-to: #ef5350;
-  --text-glow: 0 0 40px rgba(255, 0, 0, 0.8), 0 0 80px rgba(255, 0, 0, 0.3);
+  --text-glow: 0 0 40px rgba(255, 0, 0, 0.8),
+    0 0 80px rgba(255, 0, 0, 0.3);
   --input-bg: rgba(255, 0, 0, 0.1);
   --input-border: rgba(255, 0, 0, 0.2);
   --glow-color-rgb: 255, 0, 0;
@@ -37,6 +43,7 @@
 .oled {
   --bg-primary: #000000;
   --text-primary: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(0, 188, 212, 0.2);
   --gradient-from: #ffffff;
   --gradient-to: #00bcd4;
@@ -45,12 +52,12 @@
   --input-border: rgba(255, 255, 255, 0.1);
   --glow-color-rgb: 0, 188, 212;
   --glow-intensity: 0.4;
-  --glass-bg: rgba(255,255,255,0.05);
 }
 
 .twilight {
   --bg-primary: #12121e;
   --text-primary: #f0f0f0;
+  --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-shadow: none;
   --gradient-from: #ffffff;
   --gradient-to: #f97316;
@@ -59,7 +66,6 @@
   --input-border: rgba(255, 255, 255, 0.15);
   --glow-color-rgb: 249, 115, 22;
   --glow-intensity: 0.3;
-  --glass-bg: rgba(255,255,255,0.05);
 }
 
 .nova {
@@ -75,23 +81,33 @@
   --glow-intensity: 0.5;
 }
 
+/* =======================
+   BASE
+======================= */
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.5s ease;
   @apply antialiased;
 }
 
+/* =======================
+   UTILITIES
+======================= */
+
 @layer utilities {
   .section {
-    @apply w-full px-6 py-20 sm:py-28 lg:py-36;
+    @apply w-full px-6 py-20;
   }
 
   .section-page {
-    @apply w-full px-4 py-8 sm:py-10 lg:py-12;
+    @apply w-full px-4 py-8;
   }
 
   .glass-panel {
+    position: relative;
     background: var(--glass-bg);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
@@ -99,19 +115,7 @@ body {
     border-radius: 20px;
     box-shadow: var(--glass-shadow);
     transition: all 0.28s ease;
-    position: relative;
     overflow: visible;
-  }
-
-  @screen sm {
-    .glass-panel {
-      border-radius: 24px;
-    }
-  }
-  @screen lg {
-    .glass-panel {
-      border-radius: 28px;
-    }
   }
 
   .text-glow {
@@ -119,11 +123,9 @@ body {
   }
 
   .mouse-glow-container {
-    @apply relative transition-shadow duration-300 rounded-3xl mx-auto max-w-[1200px] p-4 md:p-6;
-    position: relative;
+    @apply relative mx-auto max-w-[1200px] rounded-3xl p-4 transition-shadow duration-300;
     overflow: hidden;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-block: 1.5rem;
     box-shadow: 0 0 0 transparent;
   }
 
@@ -148,7 +150,11 @@ body {
   }
 
   .gradient-text {
-    background: linear-gradient(to bottom, var(--gradient-from), var(--gradient-to));
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-from),
+      var(--gradient-to)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -157,24 +163,58 @@ body {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
-    -ms-overflow-style: none;
     scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .content-container {
-    @apply max-w-[1200px] w-full mx-auto px-6;
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: calc(var(--spacing) * 6);
+  }
+}
+
+/* =======================
+   RESPONSIVE (TAILWIND v4)
+======================= */
+
+@media (min-width: 640px) {
+  .section {
+    padding-block: 7rem;
   }
 
-  @screen md {
-    .content-container {
-      @apply px-8;
-    }
+  .glass-panel {
+    border-radius: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mouse-glow-container {
+    padding: 1.5rem;
   }
 
-  @screen lg {
-    .content-container {
-      @apply px-10;
-    }
+  .content-container {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 9rem;
+  }
+
+  .section-page {
+    padding-block: 3rem;
+  }
+
+  .glass-panel {
+    border-radius: 28px;
+  }
+
+  .content-container {
+    padding-inline: calc(var(--spacing) * 10);
   }
 }
